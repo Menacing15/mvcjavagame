@@ -1,5 +1,6 @@
 package ua.javaexternal.alexander.game;
 
+
 import java.util.Scanner;
 
 public class Controller {
@@ -12,14 +13,15 @@ public class Controller {
     }
 
     public void run() {
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
+        view.setUp(scanner);
         view.printGreetings();
         model.setPrimaryBarrier(GlobalConstants.MIN_BARRIER,
                 GlobalConstants.MAX_BARRIER);
         model.setSecretValue();
 
         int currentAttemptCount = 1;
-        while (!model.checkValue(scanInputIntValue(sc))) {
+        while (!model.checkValue(scanInputIntValue(scanner))) {
             if(currentAttemptCount++ == GlobalConstants.ATTEMPTS_COUNT){
                 break;
             }
@@ -32,16 +34,16 @@ public class Controller {
         view.printStats(model);
     }
 
-    private int scanInputIntValue(Scanner sc) {
+    private int scanInputIntValue(Scanner scanner) {
         int result = 0;
         view.print(view.getInputMessage(model.getMinBarrier(), model.getMaxBarrier()));
 
         while (true) {
-            while (!sc.hasNextInt()) {
+            while (!scanner.hasNextInt()) {
                 view.printInvalidInput(model);
-                sc.next();
+                scanner.next();
             }
-            if ((result = sc.nextInt()) <= model.getMinBarrier()
+            if ((result = scanner.nextInt()) <= model.getMinBarrier()
                     || result >= model.getMaxBarrier()) {
                 view.printInvalidRangeInput(model);
                 continue;

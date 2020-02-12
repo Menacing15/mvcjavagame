@@ -2,12 +2,13 @@ package ua.javaexternal.alexander.game;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class View {
-    private static String MESSAGES_BUNDLE_NAME = "property/text";
-    private static final ResourceBundle bundle = ResourceBundle.getBundle(
-            MESSAGES_BUNDLE_NAME,
-            new Locale("ru"));
+    private static final String MESSAGES_BUNDLE_NAME = "property/text";
+    private static String LANGUAGE = "";
+
+    private static ResourceBundle bundle;
 
     private static final String SPACE_SIGN = " ";
     private static final String SEMICOLON_SIGN = ";";
@@ -28,6 +29,31 @@ public class View {
         System.out.println(message);
     }
 
+    public void setUp(Scanner scanner) {
+        print("1 - english, 2 - русский");
+        while(!scanner.hasNextInt()){
+            print("Type a number!");
+            scanner.next();
+        }
+        setLanguage(scanner.nextInt());
+    }
+
+    private void setLanguage(int i) {
+        switch (i) {
+            case 1:
+                LANGUAGE = "";
+                break;
+            case 2:
+                LANGUAGE = "ru";
+                break;
+        }
+        setBundle();
+    }
+
+    private void setBundle() {
+        bundle = ResourceBundle.getBundle(MESSAGES_BUNDLE_NAME, new Locale(LANGUAGE));
+    }
+
     private String concatenationString(String... message) {
         StringBuilder concatString = new StringBuilder();
         for (String string : message) {
@@ -36,7 +62,7 @@ public class View {
         return new String(concatString);
     }
 
-    void printGreetings(){
+    void printGreetings() {
         print(bundle.getString(GREETINGS));
     }
 
