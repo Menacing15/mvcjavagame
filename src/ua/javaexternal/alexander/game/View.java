@@ -20,10 +20,11 @@ public class View {
     private static final String WRONG_RANGE_DATA = "input.wrong.range";
     private static final String GREETINGS = "input.greetings";
     private static final String CONGRATULATION = "input.congratulation";
+    private static final String DEFEAT = "input.defeat";
     private static final String YOUR_ATTEMPTS = "input.attempts";
     private static final String YOUR_LOG = "input.log";
 
-    public void type(String message) {
+    public void print(String message) {
         System.out.println(message);
     }
 
@@ -36,7 +37,7 @@ public class View {
     }
 
     void printGreetings(){
-        type(bundle.getString(GREETINGS));
+        print(bundle.getString(GREETINGS));
     }
 
     String getInputMessage(int minBarrier, int maxBarrier) {
@@ -48,22 +49,27 @@ public class View {
     }
 
     void printInvalidRangeInput(Model model) {
-        type(bundle.getString(WRONG_RANGE_DATA) + NEXT_LINE +
+        print(bundle.getString(WRONG_RANGE_DATA) + NEXT_LINE +
                 getInputMessage(model.getMinBarrier(), model.getMaxBarrier()));
     }
 
     void printInvalidInput(Model model) {
-        type(bundle.getString(WRONG_INPUT_INT_DATA) + NEXT_LINE +
+        print(bundle.getString(WRONG_INPUT_INT_DATA) + NEXT_LINE +
                 getInputMessage(model.getMinBarrier(), model.getMaxBarrier()));
     }
 
     void printCongratulation(Model model) {
-        type(bundle.getString(CONGRATULATION) + SPACE_SIGN +
+        print(bundle.getString(CONGRATULATION) + SPACE_SIGN +
+                model.getSecretValue());
+    }
+
+    void printDefeat(Model model) {
+        print(bundle.getString(DEFEAT) + SPACE_SIGN +
                 model.getSecretValue());
     }
 
     void printStats(Model model) {
-        type(bundle.getString(YOUR_LOG) + SPACE_SIGN + model.getLog() + NEXT_LINE +
+        print(bundle.getString(YOUR_LOG) + SPACE_SIGN + model.getLog() + NEXT_LINE +
                 bundle.getString(YOUR_ATTEMPTS) + SPACE_SIGN + model.getAttemptsCount());
     }
 }

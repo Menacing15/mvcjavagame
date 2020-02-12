@@ -35,8 +35,8 @@ public class Model {
     }
 
     public void setSecretValue() {
-        secretValue = (int) (Math.random() *
-                (maxBarrier - minBarrier + 1) + minBarrier);
+        secretValue = (int) (Math.random()
+                * (maxBarrier - minBarrier + 1) + minBarrier);
     }
 
     public int getSecretValue() {

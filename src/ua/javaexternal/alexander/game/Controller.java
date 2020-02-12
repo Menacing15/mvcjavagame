@@ -14,20 +14,27 @@ public class Controller {
     public void run() {
         Scanner sc = new Scanner(System.in);
         view.printGreetings();
-        model.setPrimaryBarrier(GlobalConstants.PRIMARY_MIN_BARRIER,
-                GlobalConstants.PRIMARY_MAX_BARRIER);
+        model.setPrimaryBarrier(GlobalConstants.MIN_BARRIER,
+                GlobalConstants.MAX_BARRIER);
         model.setSecretValue();
 
+        int currentAttemptCount = 1;
         while (!model.checkValue(scanInputIntValue(sc))) {
-
+            if(currentAttemptCount++ == GlobalConstants.ATTEMPTS_COUNT){
+                break;
+            }
         }
-        view.printCongratulation(model);
+        if(currentAttemptCount > GlobalConstants.ATTEMPTS_COUNT){
+            view.printDefeat(model);
+        }else {
+            view.printCongratulation(model);
+        }
         view.printStats(model);
     }
 
     private int scanInputIntValue(Scanner sc) {
         int result = 0;
-        view.type(view.getInputMessage(model.getMinBarrier(), model.getMaxBarrier()));
+        view.print(view.getInputMessage(model.getMinBarrier(), model.getMaxBarrier()));
 
         while (true) {
             while (!sc.hasNextInt()) {
